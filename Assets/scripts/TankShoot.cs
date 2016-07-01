@@ -6,14 +6,13 @@ public class TankShoot : NetworkBehaviour {
 
     public GameObject bulletPrefab;             // The bullet to be fired from the tank
     public float bulletVelocity = 5f;           // Velocity with which bullet leaves the tank
-    public float bulletRelPosition = 1.25f;     // Starting postion of bullet relative wrt to tank 
+    public float bulletRelPosition = 2.25f;     // Starting postion of bullet relative wrt to tank 
     public float fireRate = 0.5f;               // Rate of firing. Min time to wait to fire next shot
 
-    private float nextFireTime;
+    public float nextFireTime;
 
 	// Use this for initialization
 	void Start () {
-
         nextFireTime = Time.time;   // Initialize the nextFireTime
 	}
 	
@@ -28,7 +27,16 @@ public class TankShoot : NetworkBehaviour {
 
         // Define position of bullet
         Vector2 tankPosition = transform.position;
+        Debug.Log(tankPosition.x);
+        Debug.Log(tankPosition.y);
+        
         Vector3 pos = new Vector3(tankPosition.x + bulletRelPosition * Mathf.Cos(tankAngle), tankPosition.y + bulletRelPosition * Mathf.Sin(tankAngle), transform.position.z);
+
+        Debug.Log(pos.x);
+        Debug.Log(pos.y);
+        Debug.Log(pos.z);
+
+        Debug.Log(bulletRelPosition);
 
         // Define the velocity of bullet
         Vector2 vel = new Vector2(bulletVelocity * Mathf.Cos(tankAngle), bulletVelocity * Mathf.Sin(tankAngle));
@@ -45,8 +53,6 @@ public class TankShoot : NetworkBehaviour {
         //Spawn the bullet on all clients
         NetworkServer.Spawn(bullet);
 
-        // Update the the next time available for a fire.
-        nextFireTime = Time.time + fireRate;
     }
     
 	// Update is called once per frame
@@ -56,6 +62,8 @@ public class TankShoot : NetworkBehaviour {
         if (Input.GetKey(KeyCode.Space) && Time.time >= nextFireTime)
         {
             CmdFireBullet();
+            // Update the the next time available for a fire.
+            nextFireTime = Time.time + fireRate;
         }
 
     }
