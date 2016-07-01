@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: 2b3d4a704df4ece4bb11228edf86c3d0
-timeCreated: 1467181714
+timeCreated: 1467375975
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - LeftWall: {fileID: 160740, guid: 46c7a49a9d5c70641aff200882037ef0, type: 2}
+  - RightWall: {fileID: 176208, guid: d7b1f237f1ee786469f0da1c873a3568, type: 2}
+  - DownWall: {fileID: 197422, guid: 9fcfbd72a49c9d641995609ee01de806, type: 2}
+  - UpWall: {fileID: 183932, guid: 41e0b71e90b7733499607c3e1778d6cc, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

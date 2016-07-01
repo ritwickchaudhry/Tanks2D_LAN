@@ -5,6 +5,10 @@ using UnityEngine.Networking;
 
 public class TankProp : NetworkBehaviour
 {
+    // SynVar helps to sync this variable to the same value on all clients and server
+    // Basically, the default gameobject name wasn't being synced. So, created one.
+    [SyncVar]
+    public string name;
 
     public float maxHealth = 100f;
     public GameObject health;
@@ -54,7 +58,7 @@ public class TankProp : NetworkBehaviour
             if (!isServer) return;
 
             // If the colliding bullet is not the tank firing it, then destroy bullet and take damage equal to that of bullet.
-            //if (coll.gameObject.GetComponent<bulletController>().parent.name != gameObject.name)
+            if (coll.gameObject.GetComponent<bulletController>().parentName != name)
             {
 
                 float bulletDamage = coll.gameObject.GetComponent<bulletController>().damage;
@@ -68,7 +72,7 @@ public class TankProp : NetworkBehaviour
 
             }
             // If the colliding bullet is of tank firing it, destory bullet. No damage to tank.
-            //else
+            else
             {
                 // Bullet is destroyed on it's own. It's bullet's property.
             }

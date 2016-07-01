@@ -1,51 +1,54 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class bulletController : MonoBehaviour
+public class bulletController : NetworkBehaviour
 {
 
-    public GameObject parent;           // The tank which has fired this bullet
+    // SynVar helps to sync this variable to the same value on all clients and server
+    [SyncVar]
+    public string parentName;           // The tank which has fired this bullet
+    [SyncVar]
     public float damage;                // Damage that this bullet can do
+    [SyncVar]
     public float radius;                // Radius of the bullet
-    public Vector3 currVelocity;
+    //public Vector3 currVelocity;
 
     // Use this for initialization
     void Start()
     {
         // Change the radius to the given radius
-        // gameObject.transform.localScale = new Vector3(1,1,1) * radius;
+        gameObject.transform.localScale = new Vector3(1, 1, 1) * radius;
     }
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        Debug.Log(coll.gameObject.tag);
-
         //Destroy the bullet if it collides with any tank (other than the one firing), wall or another bullet.
 
         if (coll.gameObject.tag == "Tank")                  // Collision with tank
         {
-            Destroy(gameObject);
+            Debug.Log(coll.gameObject.GetComponent<TankProp>().name + ' ' + parentName);
 
-            //if (coll.gameObject.name != parent.name)        // If not parent tank, destroy bullet. 
-            //{
-            //    Destroy(gameObject);
-            //}
-            //else                                            // If parent tank, don't destory
-            //{
-            //    //Shouldn't we Destory the bullet here as well? And we need to find a go around here
-            //    //Collision is always there at the time of spawning of the bullet
-            //    //Also if we don't destroy it then we need to let it go through the parent tank
-            //    //As it is imparting a velocity to the tank that stays after the collision after moving also     :P 
-            //    //Destroy(gameObject);
-            //}
+            if (coll.gameObject.GetComponent<TankProp>().name != parentName)        // If not parent tank, destroy bullet. 
+            {
+                Destroy(gameObject);
+                
+            }
+            else                                            // If parent tank, don't destory
+            {
+                //Shouldn't we Destory the bullet here as well? And we need to find a go around here
+                //Collision is always there at the time of spawning of the bullet
+                //Also if we don't destroy it then we need to let it go through the parent tank
+                //As it is imparting a velocity to the tank that stays after the collision after moving also     :P 
+                //Destroy(gameObject);
+            }
         }
         else if (coll.gameObject.tag == "Bullet")           // Collision with bullet
         {
-            Destroy(gameObject);
-            //if (coll.gameObject.GetComponent<bulletController>().parent.name != parent.name)
-            //{
-            //    Destroy(gameObject);
-            //}
+            if (coll.gameObject.GetComponent<bulletController>().parentName != parentName)
+            {
+                Destroy(gameObject);
+            }
         }
         else if (coll.gameObject.tag == "Wall")             // Collision with wall
         {

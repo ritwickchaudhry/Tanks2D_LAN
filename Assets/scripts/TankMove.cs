@@ -6,15 +6,12 @@ public class TankMove : NetworkBehaviour {
 
     public float speed = 1.0f;          // Speed at which the tank moves.
 
+    static public int playerNumber;
+
 	// Use this for initialization
 	void Start () {
 
 	}
-
-    public override void OnStartLocalPlayer()
-    {
-        GetComponent<MeshRenderer>().material.color = Color.red;
-    }
 
     // Update is called once per frame
     void Update () {

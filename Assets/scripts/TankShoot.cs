@@ -9,7 +9,7 @@ public class TankShoot : NetworkBehaviour {
     public float bulletRelPosition = 2.25f;     // Starting postion of bullet relative wrt to tank 
     public float fireRate = 0.5f;               // Rate of firing. Min time to wait to fire next shot
 
-    public float nextFireTime;
+    private float nextFireTime;
 
 	// Use this for initialization
 	void Start () {
@@ -21,22 +21,14 @@ public class TankShoot : NetworkBehaviour {
     //Command is a keyword that runs the command(Function) on server
     //Also the preix of the function name has to be Cmd
     [Command]
-    void CmdFireBullet()
+    void CmdFireBullet(string name)
     {
         float tankAngle = transform.eulerAngles.z * Mathf.Deg2Rad;  // Angle of shooting
 
         // Define position of bullet
         Vector2 tankPosition = transform.position;
-        Debug.Log(tankPosition.x);
-        Debug.Log(tankPosition.y);
         
         Vector3 pos = new Vector3(tankPosition.x + bulletRelPosition * Mathf.Cos(tankAngle), tankPosition.y + bulletRelPosition * Mathf.Sin(tankAngle), transform.position.z);
-
-        Debug.Log(pos.x);
-        Debug.Log(pos.y);
-        Debug.Log(pos.z);
-
-        Debug.Log(bulletRelPosition);
 
         // Define the velocity of bullet
         Vector2 vel = new Vector2(bulletVelocity * Mathf.Cos(tankAngle), bulletVelocity * Mathf.Sin(tankAngle));
@@ -46,8 +38,8 @@ public class TankShoot : NetworkBehaviour {
         bullet.GetComponent<Rigidbody2D>().velocity = vel;
 
         // Properties of the bullet. Can be changed to make better gameplay.
-        bullet.GetComponent<bulletController>().parent = gameObject;
-        bullet.GetComponent<bulletController>().damage = 5.0f;
+        bullet.GetComponent<bulletController>().parentName = name;
+        bullet.GetComponent<bulletController>().damage = 10.0f;
         bullet.GetComponent<bulletController>().radius = 0.18f;
 
         //Spawn the bullet on all clients
@@ -57,11 +49,14 @@ public class TankShoot : NetworkBehaviour {
     
 	// Update is called once per frame
 	void Update () {
-        //if (!isLocalPlayer) return;
+
+        if (!isLocalPlayer) return;
 
         if (Input.GetKey(KeyCode.Space) && Time.time >= nextFireTime)
         {
-            CmdFireBullet();
+            // Sending the name of the tank to attach to bullet
+            CmdFireBullet(gameObject.GetComponent<TankProp>().name);
+
             // Update the the next time available for a fire.
             nextFireTime = Time.time + fireRate;
         }

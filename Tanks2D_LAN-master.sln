@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tanks2D_LAN-master.CSharp.Plugins", "Tanks2D_LAN-master.CSharp.Plugins.csproj", "{AC99B95D-B6B4-1835-0962-0FBA0C2D278C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tanks2D_LAN-master.CSharp", "Tanks2D_LAN-master.CSharp.csproj", "{FF9FD4FE-9773-A04A-6648-F0F5543C8A9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tanks2D_LAN-master.CSharp.Editor", "Tanks2D_LAN-master.CSharp.Editor.csproj", "{CB41922F-B179-68AF-19F5-B463D540A1C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC99B95D-B6B4-1835-0962-0FBA0C2D278C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC99B95D-B6B4-1835-0962-0FBA0C2D278C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC99B95D-B6B4-1835-0962-0FBA0C2D278C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC99B95D-B6B4-1835-0962-0FBA0C2D278C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF9FD4FE-9773-A04A-6648-F0F5543C8A9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF9FD4FE-9773-A04A-6648-F0F5543C8A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF9FD4FE-9773-A04A-6648-F0F5543C8A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF9FD4FE-9773-A04A-6648-F0F5543C8A9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB41922F-B179-68AF-19F5-B463D540A1C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB41922F-B179-68AF-19F5-B463D540A1C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB41922F-B179-68AF-19F5-B463D540A1C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB41922F-B179-68AF-19F5-B463D540A1C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
