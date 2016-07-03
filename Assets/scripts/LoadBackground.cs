@@ -5,7 +5,6 @@ using System.Collections;
 
 public class LoadBackground : NetworkBehaviour
 {
-
     public GameObject LeftWall;
     public GameObject RightWall;
     public GameObject DownWall;
@@ -14,10 +13,10 @@ public class LoadBackground : NetworkBehaviour
     // Use this for initialization
     public override void OnStartServer () {
 
-        var left = (GameObject)Instantiate(LeftWall);
-        var right = (GameObject)Instantiate(RightWall);
-        var down = (GameObject)Instantiate(DownWall);
-        var up = (GameObject)Instantiate(UpWall);
+        var left = Instantiate(LeftWall);
+        var right = Instantiate(RightWall);
+        var down = Instantiate(DownWall);
+        var up = Instantiate(UpWall);
 
         NetworkServer.Spawn(left);
         NetworkServer.Spawn(right);

@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Assets\scripts\LoadBackground.cs" />
     <Compile Include="Assets\scripts\Session.cs" />
+    <Compile Include="Assets\scripts\TankHealth.cs" />
     <Compile Include="Assets\scripts\TankMove.cs" />
     <Compile Include="Assets\scripts\TankProp.cs" />
     <Compile Include="Assets\scripts\TankShoot.cs" />

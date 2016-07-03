@@ -3,99 +3,23 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
+
+// THIS SCRIPT SHOULD STORE JUST ALL THE PROPERTIES OF THE TANK
 public class TankProp : NetworkBehaviour
 {
     // SynVar helps to sync this variable to the same value on all clients and server
     // Basically, the default gameobject name wasn't being synced. So, created one.
     [SyncVar]
-    public string name;
-
-    public float maxHealth = 100f;
-    public GameObject health;
-    public float relativeDownDistance = 1f;
-
-    [SyncVar]
-    private float actualHealth;
-    private Scrollbar healthBar;
+    public string name;                     // The name of the tank
+    public float maxHealth;                 // The maximum health that the tank can have
+    public float speed;                     // The speed with which the tank moves around
+    public float bulletVelocity;            // Velocity with which bullet leaves the tank
+    public float fireRate;                  // Rate of firing. Min time to wait to fire next shot
 
     // Use this for initialization
     void Start()
     {
 
-        healthBar = health.GetComponentInChildren<Scrollbar>();
-
-        // Don't rotate HealthBar with tank. Keep the rotation zero.
-        var rotation = health.transform.rotation.eulerAngles;
-        rotation.z = 0;
-        health.transform.rotation = Quaternion.Euler(rotation);
-
-        // Keep the HealthBar below the tank.
-        health.transform.position = transform.position - new Vector3(0, relativeDownDistance, 0);
-
-        healthBar.size = 1f;
-
-        if (!isServer)
-        {
-            return;
-        }
-
-        // Initializing the tank with full health
-        actualHealth = maxHealth;
     }
 
-    void OnCollisionEnter2D(Collision2D coll)
-    {
-        //Debug.Log(coll.gameObject.tag);
-
-        if (coll.gameObject.tag == "Tank")              // Collision with tank.
-        {
-            // Code for damage to tanks.
-        }
-
-        else if (coll.gameObject.tag == "Bullet")       // Collision with bullet
-        {
-
-            if (!isServer) return;
-
-            // If the colliding bullet is not the tank firing it, then destroy bullet and take damage equal to that of bullet.
-            if (coll.gameObject.GetComponent<bulletController>().parentName != name)
-            {
-
-                float bulletDamage = coll.gameObject.GetComponent<bulletController>().damage;
-                actualHealth -= bulletDamage;
-
-                // If tank's health <= 0, Kill tank
-                if (actualHealth <= 0)
-                {
-                    Destroy(gameObject);
-                }
-
-            }
-            // If the colliding bullet is of tank firing it, destory bullet. No damage to tank.
-            else
-            {
-                // Bullet is destroyed on it's own. It's bullet's property.
-            }
-
-        }
-        else if (coll.gameObject.tag == "Wall")   // Collision with Walls
-        {
-            // Do nothing if collision with walls
-        }
-
-    }
-
-    // Update is called once per frame
-    void LateUpdate()
-    {
-
-        var rotation = health.transform.rotation.eulerAngles;
-        rotation.z = 0;
-        health.transform.rotation = Quaternion.Euler(rotation);
-
-        health.transform.position = transform.position - new Vector3(0, relativeDownDistance, 0);
-
-        healthBar.size = Mathf.Max(actualHealth / maxHealth, 0f);
-
-    }
 }

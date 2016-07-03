@@ -5,14 +5,18 @@ using UnityEngine.Networking;
 public class TankShoot : NetworkBehaviour {
 
     public GameObject bulletPrefab;             // The bullet to be fired from the tank
-    public float bulletVelocity = 5f;           // Velocity with which bullet leaves the tank
     public float bulletRelPosition = 2.25f;     // Starting postion of bullet relative wrt to tank 
-    public float fireRate = 0.5f;               // Rate of firing. Min time to wait to fire next shot
 
+    private float fireRate;                     // Rate of firing. Min time to wait to fire next shot
+    private float bulletVelocity;               // Velocity with which bullet leaves the tank
     private float nextFireTime;
 
 	// Use this for initialization
 	void Start () {
+
+        bulletVelocity = gameObject.GetComponent<TankProp>().bulletVelocity;
+        fireRate = gameObject.GetComponent<TankProp>().fireRate;
+
         nextFireTime = Time.time;   // Initialize the nextFireTime
 	}
 	

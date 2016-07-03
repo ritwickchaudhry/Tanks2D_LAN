@@ -27,8 +27,6 @@ public class bulletController : NetworkBehaviour
 
         if (coll.gameObject.tag == "Tank")                  // Collision with tank
         {
-            Debug.Log(coll.gameObject.GetComponent<TankProp>().name + ' ' + parentName);
-
             if (coll.gameObject.GetComponent<TankProp>().name != parentName)        // If not parent tank, destroy bullet. 
             {
                 Destroy(gameObject);
